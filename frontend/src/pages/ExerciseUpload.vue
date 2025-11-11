@@ -19,7 +19,8 @@
           <div v-if="!uploading && !result">
             <div class="upload-icon">📸</div>
             <p>点击上传运动截图</p>
-            <p class="upload-hint">支持 JPG/PNG,最大 10MB</p>
+            <p class="upload-hint">支持单次运动记录和每日步数总结</p>
+            <p class="upload-hint">支持 JPG/PNG，最大 10MB</p>
           </div>
           <div v-else-if="uploading" class="uploading">
             <div class="spinner"></div>
@@ -40,7 +41,7 @@
             <span class="label">运动类型</span>
             <span class="value">{{ result.exercise_type }}</span>
           </div>
-          <div class="detail-item">
+          <div class="detail-item" v-if="result.exercise_type !== '每日步数' && result.duration_min">
             <span class="label">时长</span>
             <span class="value">{{ result.duration_min }} 分钟</span>
           </div>
@@ -50,7 +51,7 @@
           </div>
           <div class="detail-item" v-if="result.steps">
             <span class="label">步数</span>
-            <span class="value">{{ result.steps }} 步</span>
+            <span class="value">{{ result.steps.toLocaleString() }} 步</span>
           </div>
           <div class="detail-item" v-if="result.avg_heart_rate">
             <span class="label">平均心率</span>
