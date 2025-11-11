@@ -35,7 +35,6 @@ class UserResponse(BaseModel):
     id: int
     username: str
     name: str
-    role: str
     total_score: int
     token: str
 
@@ -94,7 +93,6 @@ def register(request: RegisterRequest, session: Session = Depends(get_session)):
         username=request.username,
         password_hash=hash_password(request.password),
         name=request.name,
-        role=request.role,
         total_score=0
     )
     
@@ -109,7 +107,6 @@ def register(request: RegisterRequest, session: Session = Depends(get_session)):
         id=user.id,
         username=user.username,
         name=user.name,
-        role=user.role,
         total_score=user.total_score,
         token=token
     )
@@ -142,7 +139,6 @@ def login(request: LoginRequest, session: Session = Depends(get_session)):
         id=user.id,
         username=user.username,
         name=user.name,
-        role=user.role,
         total_score=user.total_score,
         token=token
     )
@@ -170,7 +166,6 @@ def get_current_user(
         id=user.id,
         username=user.username,
         name=user.name,
-        role=user.role,
         total_score=user.total_score,
         token=token
     )
