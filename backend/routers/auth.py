@@ -22,7 +22,6 @@ class RegisterRequest(BaseModel):
     username: str
     password: str
     name: str
-    role: str = "other"
 
 
 class LoginRequest(BaseModel):

@@ -30,8 +30,7 @@ async def lifespan(app: FastAPI):
                 id=1, 
                 username="test",
                 password_hash=hashlib.sha256("123456".encode()).hexdigest(),
-                name="测试用户", 
-                role="other",
+                name="测试用户",
                 total_score=0
             )
             session.add(default_user)
