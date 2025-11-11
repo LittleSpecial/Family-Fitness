@@ -1,0 +1,8 @@
+backend/
+requirements.txt
+*.py
+*.db
+data/
+uploads/
+venv/
+.env
