@@ -9,8 +9,11 @@ class User(SQLModel, table=True):
     __tablename__ = "users"
     
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(max_length=50)
+    username: str = Field(max_length=50, unique=True, index=True)  # 登录用户名
+    password_hash: str = Field(max_length=255)  # 密码哈希
+    name: str = Field(max_length=50)  # 显示名称
     role: str = Field(default="other", max_length=20)  # father/mother/other
+    total_score: int = Field(default=0, ge=0)  # 总积分
     created_at: datetime = Field(default_factory=datetime.now)
 
 

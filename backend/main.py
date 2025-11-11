@@ -7,7 +7,7 @@ from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 from config import settings
 from database import create_db_and_tables
-from routers import exercise, meals, tasks
+from routers import exercise, meals, tasks, auth
 from models import User
 from sqlmodel import Session, select
 from database import engine
@@ -25,10 +25,18 @@ async def lifespan(app: FastAPI):
         existing_user = session.exec(statement).first()
         
         if not existing_user:
-            default_user = User(id=1, name="测试用户", role="other")
+            import hashlib
+            default_user = User(
+                id=1, 
+                username="test",
+                password_hash=hashlib.sha256("123456".encode()).hexdigest(),
+                name="测试用户", 
+                role="other",
+                total_score=0
+            )
             session.add(default_user)
             session.commit()
-            print("✅ 已创建默认测试用户 (ID=1, name=测试用户)")
+            print("✅ 已创建默认测试用户 (username=test, password=123456)")
     
     print("✅ 数据库初始化完成")
     yield
@@ -53,6 +61,7 @@ app.add_middleware(
 )
 
 # 注册路由
+app.include_router(auth.router)
 app.include_router(exercise.router)
 app.include_router(meals.router)
 app.include_router(tasks.router)
