@@ -21,8 +21,5 @@
       "src": "/(.*)",
       "dest": "frontend/dist/$1"
     }
-  ],
-  "env": {
-    "QWEN_API_KEY": "@qwen_api_key"
-  }
+  ]
 }
